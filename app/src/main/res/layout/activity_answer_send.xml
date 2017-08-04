@@ -35,4 +35,14 @@
         android:textColor="@color/colorButtonText"
         android:layout_below="@+id/answerEditText"
         android:layout_alignParentStart="true"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress"
+        android:indeterminate="false"
+        android:max="100"
+        android:visibility="gone"/>
+
 </RelativeLayout>

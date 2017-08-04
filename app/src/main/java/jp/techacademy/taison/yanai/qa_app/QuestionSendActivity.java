@@ -1,7 +1,6 @@
 package jp.techacademy.taison.yanai.qa_app;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +41,7 @@ public class QuestionSendActivity extends AppCompatActivity implements View.OnCl
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     private static final int CHOOSER_REQUEST_CODE = 100;
 
-    private ProgressDialog mProgress;
+    private ProgressBar mProgress;
     private EditText mTitleText;
     private EditText mBodyText;
     private ImageView mImageView;
@@ -71,8 +71,7 @@ public class QuestionSendActivity extends AppCompatActivity implements View.OnCl
         mImageView = (ImageView) findViewById(R.id.imageView);
         mImageView.setOnClickListener(this);
 
-        mProgress = new ProgressDialog(this);
-        mProgress.setMessage("投稿中...");
+        mProgress = (ProgressBar) findViewById(R.id.progress);
 
     }
 
@@ -187,7 +186,7 @@ public class QuestionSendActivity extends AppCompatActivity implements View.OnCl
             }
 
             genreRef.push().setValue(data, this);
-            mProgress.show();
+            mProgress.setVisibility(ProgressBar.VISIBLE);
         }
     }
 
@@ -232,7 +231,7 @@ public class QuestionSendActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-        mProgress.dismiss();
+        mProgress.setVisibility(ProgressBar.GONE);
 
         if (databaseError == null) {
             finish();

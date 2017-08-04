@@ -1,6 +1,6 @@
 package jp.techacademy.taison.yanai.qa_app;
 
-import android.app.ProgressDialog;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -38,8 +38,10 @@ public class AnswerSendActivity extends AppCompatActivity implements View.OnClic
 
         // UIの準備
         mAnswerEditText = (EditText) findViewById(R.id.answerEditText);
-        mProgress = new ProgressBar(this);
-        mProgress.setMessage("投稿中...");
+        //mProgress = new ProgressBar(this);
+        mProgress = (ProgressBar) findViewById(R.id.progress);
+
+        //mProgress.setText("投稿中...");
 
         Button sendButton = (Button) findViewById(R.id.sendButton);
         sendButton.setOnClickListener(this);
@@ -47,7 +49,7 @@ public class AnswerSendActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-        mProgress.dismiss();
+        mProgress.setVisibility(ProgressBar.GONE);
 
         if (databaseError == null) {
             finish();
@@ -87,7 +89,7 @@ public class AnswerSendActivity extends AppCompatActivity implements View.OnClic
         }
         data.put("body", answer);
 
-        mProgress.show();
+        mProgress.setVisibility(ProgressBar.VISIBLE);
         answerRef.push().setValue(data, this);
     }
 

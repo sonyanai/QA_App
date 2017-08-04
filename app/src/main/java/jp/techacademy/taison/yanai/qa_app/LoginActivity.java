@@ -1,6 +1,5 @@
 package jp.techacademy.taison.yanai.qa_app;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText mEmailEditText;
     EditText mPasswordEditText;
     EditText mNameEditText;
-    ProgressDialog mProgress;
+    ProgressBar mProgress;
 
     FirebaseAuth mAuth;
     OnCompleteListener<AuthResult> mCreateAccountListener;
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     Snackbar.make(view, "アカウント作成に失敗しました", Snackbar.LENGTH_LONG).show();
 
                     // プログレスダイアログを非表示にする
-                    mProgress.dismiss();
+                    mProgress.setVisibility(ProgressBar.GONE);
                 }
             }
         };
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     // プログレスダイアログを非表示にする
-                    mProgress.dismiss();
+                    mProgress.setVisibility(ProgressBar.GONE);
 
                     // Activityを閉じる
                     finish();
@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                     Snackbar.make(view, "ログインに失敗しました", Snackbar.LENGTH_LONG).show();
 
                     // プログレスダイアログを非表示にする
-                    mProgress.dismiss();
+                    mProgress.setVisibility(ProgressBar.GONE);
                 }
             }
         };
@@ -133,8 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordEditText = (EditText) findViewById(R.id.passwordText);
         mNameEditText = (EditText) findViewById(R.id.nameText);
 
-        mProgress = new ProgressDialog(this);
-        mProgress.setMessage("処理中...");
+        mProgress = (ProgressBar) findViewById(R.id.progress);
 
         Button createButton = (Button) findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void createAccount(String email, String password) {
         // プログレスダイアログを表示する
-        mProgress.show();
+        mProgress.setVisibility(ProgressBar.VISIBLE);
 
         // アカウントを作成する
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(mCreateAccountListener);
@@ -194,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(String email, String password) {
         // プログレスダイアログを表示する
-        mProgress.show();
+        mProgress.setVisibility(ProgressBar.VISIBLE);
 
         // ログインする
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(mLoginListener);

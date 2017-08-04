@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +25,7 @@ public class AnswerSendActivity extends AppCompatActivity implements View.OnClic
 
     private EditText mAnswerEditText;
     private Question mQuestion;
-    private ProgressDialog mProgress;
+    private ProgressBar mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class AnswerSendActivity extends AppCompatActivity implements View.OnClic
 
         // UIの準備
         mAnswerEditText = (EditText) findViewById(R.id.answerEditText);
-        mProgress = new ProgressDialog(this);
+        mProgress = new ProgressBar(this);
         mProgress.setMessage("投稿中...");
 
         Button sendButton = (Button) findViewById(R.id.sendButton);

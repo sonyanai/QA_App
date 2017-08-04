@@ -1,5 +1,6 @@
 package jp.techacademy.taison.yanai.qa_app;
 
+
 /**
  * Created by taiso on 2017/08/04.
  */
